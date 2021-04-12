@@ -66,7 +66,7 @@ class Music {
     this.audioElement.addEventListener('ended', this.handleNext);
     this.volume.addEventListener('input', this.handleVolume);
     this.seekBar.addEventListener('input', this.setProgress);
-    this.volumeContainer.addEventListener('click', this.displayVolume);
+    this.volumeBtn.addEventListener('click', this.displayVolume);
     this.shuffle.addEventListener('click', this.handleShuffle);
     this.favourite.addEventListener('click', this.handleFavourite);
   }
@@ -154,13 +154,11 @@ class Music {
   }
 
   // Display volume to DOM
-  displayVolume = (e) => {
+  displayVolume () {
     const volWrapper = document.querySelector('.volume-wrapper');
-    if(e.target.parentElement.classList.contains('volume-btn')) {
-      e.target.classList.toggle('is-active');
-      volWrapper.classList.toggle('hidden');
-      volWrapper.classList.toggle('show');
-    }
+    this.firstElementChild.classList.toggle('is-active');
+    volWrapper.classList.toggle('hidden');
+    volWrapper.classList.toggle('show');
   }
 
   // Change play icon to pause
