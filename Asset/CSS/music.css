@@ -1,0 +1,75 @@
+.music-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.song-cover {
+  display: inline-block;
+  width: 100%;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+}
+
+.song-cover:hover {
+  transform: rotate(-3deg);
+  box-shadow: 0px 10px 20px var(--dark-color),
+              -10px 0 20px var(--dark-color);
+}
+
+.seek-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+#seekBar {
+  max-width: 80%;
+  width: 100%;
+}
+
+.volume-container {
+  position: relative;
+}
+
+.volume-wrapper {
+  height: 7rem;
+  width: 0.84rem;
+  position: absolute;
+  top: -2rem;
+  right: -2.5rem;
+}
+
+#volume {
+  width: 7rem;
+  height: 0.84rem;
+  transform-origin: 3.5rem 3.5rem;
+  transform: rotate(-90deg);
+}
+
+.music-action-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row nowrap;
+} 
+
+#play {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+}
+
+#play i {
+  color: var(--deep-color);
+}
+
+@media only screen and (min-width: 768px) {
+  .song-cover {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 1rem;
+  }
+}

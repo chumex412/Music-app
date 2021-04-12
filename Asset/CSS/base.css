@@ -1,0 +1,76 @@
+/* CSS Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Custom styles */
+:root {
+  --base-size: 1.15rem;
+  --type-scale: 1.05;
+
+  /* Custom Font-size */
+  --parag: calc(var(--h5) * var(--type-scale));
+  --h5: calc(var(--base-size) * var(--type-scale));
+  --h4: calc(var(--parag) * var(--type-scale));
+  --h3: calc(var(--h4) * var(--type-scale));
+  --h2: calc(var(--h3) * var(--type-scale));
+  --h1: calc(var(--h2) * var(--type-scale));
+
+  /* Custome lineheight */
+  --line-height: 1.7rem;
+  --parag-LHeight: calc(var(var(--h5-LHeight)) * var(--type-scale));
+  --h5-LHeight: calc(var(--line-height) * var(--type-scale));
+  --h4-LHeight: calc(var(--parag-LHeight) * var(--type-scale));
+  --h3-LHeight: calc(var(var(--h4-LHeight)) * var(--type-scale));
+  --h2-LHeight: calc(var(var(--h3-LHeight)) * var(--type-scale));
+  --h1-LHeight: calc(var(var(--h2-LHeight)) * var(--type-scale));
+
+  /* Custom Colors */
+  --favourite-color: rgb(229, 3, 5);
+  --primary-color: rgb(90, 185, 234);
+  --transparent-color: rgb(132, 206, 235);
+  --secondary-color: rgb(102, 252, 241);
+  --dark-color: rgb(31, 40, 51);
+  --deep-color: rgb(11, 12, 16);
+  --mute-color: #d1d7e0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  background-image: linear-gradient(to right, var(--primary-color), var(--transparent-color));
+}
+
+@media only screen and (min-width: 600px) {
+  :root {
+    --type-scale: 1.1;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  :root {
+    --type-scale: 1.15;
+  }
+}
+
+@media only screen and (min-width: 980px) {
+
+}
+
+@media only screen and (min-width: 1200px) {
+  :root {
+    --type-scale: 1.2;
+  }
+}
