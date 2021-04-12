@@ -147,10 +147,8 @@ class Music {
   }
 
   // Activates favourite
-  handleFavourite = (e) => {
-    if(e.target.classList.contains('fa-heart')) {
-      e.target.classList.toggle('is-favourite');
-    }
+  handleFavourite (e) {
+    this.firstElementChild.classList.toggle('is-favourite');
   }
 
   // Display volume to DOM
