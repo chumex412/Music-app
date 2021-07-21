@@ -102,29 +102,24 @@ class Music {
   }
 
   // show Next song
-  handleNext = () => {
+  handleNext = async () => {
     const {song, prevBtn, playBtn} = this;
     this.changePauseIcon(playBtn.firstElementChild);
     prevBtn.disabled = false;
 
     this.indexRemaining = this.indexRemaining + 1;
 
-    // Go to first song on reaching the end
-    if(this.currentTrack > (song.length - 1)) {
-      this.currentTrack = 0;
-    }
-
-    this.loadSong(song[this.currentTrack]);
+    await this.loadSong(song[this.currentTrack]);
   }
 
   // Show previous song
-  handlePrev = (e) => {
+  handlePrev = async (e) => {
     const {song, prevBtn, playBtn} = this;
     this.changePauseIcon(playBtn.firstElementChild);
 
     this.indexRemaining = this.indexRemaining - 1;
 
-    this.loadSong(song[this.currentTrack]);
+    await this.loadSong(song[this.currentTrack]);
   }
 
   // Sync media element volume and Determine what happens with volume
@@ -182,7 +177,7 @@ class Music {
 
   // Updates the currentTrack value
   set indexRemaining(index) {
-    this.currentTrack = index;
+    this.currentTrack = index % this.song.length;
   }
 
   // Return random song index value
