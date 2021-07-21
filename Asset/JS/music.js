@@ -1,6 +1,7 @@
 class Music {
-  constructor() {
+  constructor(songs) {
     this.currentTrack = 0;
+    this.tracks = songs(),
     this.musicBtns = document.querySelector('.music-action-btn');
     this.audioElement = document.getElementById('musicFile');
     this.songTitle = document.getElementById('songTitle');
@@ -14,46 +15,7 @@ class Music {
     this.volumeBtn = document.getElementById('volumeBtn');
     this.shuffle = document.getElementById('shuffle');
     this.favourite = document.getElementById('favourite');
-    this.volumeContainer = document.querySelector('.volume-container');
-    this.song = [
-      {
-        title: 'We Dont Talk Anymore',
-        artist: "Charlie Puth ft Selena Gomez",
-        file: "song1",
-        cover: "cover1"
-      },
-      {
-        title: 'Pretty Little Liars',
-        artist: "Black ft J. Cole",
-        file: "song2",
-        cover: "cover2"
-      },
-      {
-        title: 'Up All Night',
-        artist: "Khalid",
-        file: "song3",
-        cover: "cover3"
-      },
-      {
-        title: 'Got Money',
-        artist: "Lil Wayne ft T-pain",
-        file: "song4",
-        cover: "cover4"
-      },
-      {
-        title: 'Falling Like the Stars',
-        artist: "James Arthur",
-        file: "song5",
-        cover: "cover5"
-      },
-      {
-        title: 'Vibration',
-        artist: "Fireboy",
-        file: "song6",
-        cover: "cover6"
-      },
-    ];
-    
+    this.volumeContainer = document.querySelector('.volume-container'); 
   }
 
   // Event Listeners
@@ -103,23 +65,23 @@ class Music {
 
   // show Next song
   handleNext = async () => {
-    const {song, prevBtn, playBtn} = this;
+    const {tracks, prevBtn, playBtn} = this;
     this.changePauseIcon(playBtn.firstElementChild);
     prevBtn.disabled = false;
 
     this.indexRemaining = this.indexRemaining + 1;
 
-    await this.loadSong(song[this.currentTrack]);
+    await this.loadSong(tracks[this.currentTrack]);
   }
 
   // Show previous song
   handlePrev = async (e) => {
-    const {song, prevBtn, playBtn} = this;
+    const {tracks, prevBtn, playBtn} = this;
     this.changePauseIcon(playBtn.firstElementChild);
 
     this.indexRemaining = this.indexRemaining - 1;
 
-    await this.loadSong(song[this.currentTrack]);
+    await this.loadSong(tracks[this.currentTrack]);
   }
 
   // Sync media element volume and Determine what happens with volume
@@ -177,12 +139,12 @@ class Music {
 
   // Updates the currentTrack value
   set indexRemaining(index) {
-    this.currentTrack = index % this.song.length;
+    this.currentTrack = index % this.tracks.length;
   }
 
   // Return random song index value
   getRandomIndex() {
-    return Math.floor(Math.random() * this.song.length);
+    return Math.floor(Math.random() * this.tracks.length);
   }
 
   // Show Total duration of audio
