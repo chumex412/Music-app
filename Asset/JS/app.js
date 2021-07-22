@@ -1,10 +1,22 @@
-// Instan Music
-const music = new Music();
+ window.addEventListener("DOMContentLoaded", () => {
 
-let index = music.currentTrack;
+ 
+  // Instan Music
+  const music = new Music(data);
 
-const songIndex = music.song[index];
+  const list = document.querySelector('.library .song-list');
 
- music.loadEvent();
+  for(let track of music.tracks) {
+    const item = music.createLibrary(track);
+    list.append(item);
+  }
 
- music.loadSong(songIndex);
+  let index = music.currentTrack;
+
+  const songIndex = music.tracks[index];
+
+   music.loadEvent();
+
+   music.loadSong(songIndex);
+
+})

@@ -39,8 +39,8 @@
   --transparent-color: rgb(132, 206, 235);
   --secondary-color: rgb(102, 252, 241);
   --dark-color: rgb(31, 40, 51);
-  --deep-color: rgb(11, 12, 16);
-  --mute-color: #d1d7e0;
+  --deep-color: rgb(26, 28, 37);
+  --mute-color: rgb(229, 236, 238);
 }
 
 html {

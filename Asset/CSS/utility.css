@@ -66,16 +66,18 @@
   transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
+  overflow: hidden;
+  position: relative;
 }
 
-.card-img-top {
-  flex-basis: 35%;
-  height: 28rem;
-}
+/*.card-img-top img {
+  width: 20%;
+  border-radius: 50%;
+}*/
 
 .card-body {
   padding: 1rem;
-  flex-basis: 65%;
+  flex: 1 1 65%;
 }
 
 .card-body-top {
@@ -256,14 +258,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 @media only screen and (min-width: 768px) {
-  .card {
-    flex-direction: row;
-    height: 30rem;
-  }
 
-  .card-img-top {
-    height: 100%;
-  }
 }
  
 @media only screen and (min-width: 980px) {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +9,12 @@
 
   <!-------------------- Fontawesome CDN ----------------->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-   integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
   <!--------------------- Google Font ------------------>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
-   rel="stylesheet">
+    rel="stylesheet">
 
   <!------------------ Custom CSS ---------------->
   <link rel="stylesheet" href="Asset/CSS/base.css">
@@ -21,18 +22,28 @@
   <link rel="stylesheet" href="Asset/CSS/music.css">
 
 </head>
+
 <body>
-  
+
   <!-------------------- Music section ----------->
 
   <main>
     <section class="container">
-      <div class="col-4 mx-auto">
+      <div class="col-6 mx-auto">
         <div class="music-container">
           <section class="card">
-            <div class="card-img-top">
-              <img src="" alt="" class="img-fluid song-cover">
-            </div>
+            <header class="music-header">
+              <h2>Waves</h2>
+              <button class="btn">
+                Library
+                <i class="fas fa-music"></i>
+              </button>
+            </header>
+            <nav class="library">
+              <h1 class="h3">Library</h1>
+              <ul class="song-list"></ul>
+            </nav>
+            <img src="" alt="" class="song-cover">
             <div class="card-body row">
               <div class="card-body-top col-6">
                 <div class="song-info">
@@ -49,10 +60,10 @@
                 <input type="range" name="" id="seekBar" value="0" min="0" max="100">
                 <p id="totalDuration" class="parag"></p>
               </div>
-              
+
               <audio id="musicFile" src="" class="col-6"></audio>
 
-              <div class="music-action-btn col-6">
+              <div class="music-action-btn col-5 mx-auto">
                 <div class="volume-container">
                   <div class="volume-wrapper hidden">
                     <input type="range" name="" id="volume" value="9.99" min="0" max="10" step="0.01">
@@ -82,8 +93,10 @@
   </main>
 
   <!---------------- Javascript files ------------>
+  <script src="Asset/JS/data.js"></script>
   <script src="Asset/JS/music.js"></script>
   <script src="Asset/JS/app.js"></script>
 
 </body>
+
 </html>

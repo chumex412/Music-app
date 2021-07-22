@@ -2,6 +2,7 @@ class Music {
   constructor(songs) {
     this.currentTrack = 0;
     this.tracks = songs(),
+    this.library = false,
     this.musicBtns = document.querySelector('.music-action-btn');
     this.audioElement = document.getElementById('musicFile');
     this.songTitle = document.getElementById('songTitle');
@@ -31,6 +32,7 @@ class Music {
     this.volumeBtn.addEventListener('click', this.displayVolume);
     this.shuffle.addEventListener('click', this.handleShuffle);
     this.favourite.addEventListener('click', this.handleFavourite);
+    document.querySelector(".music-header button").addEventListener('click', this.handleLibraryDisplay);
   }
 
   // Load track to the DOM
@@ -49,6 +51,31 @@ class Music {
     if(this.currentTrack === 0) {
       prevBtn.disabled = true;
     }
+  }
+
+  createLibrary = (item) => {
+    const li = document.createElement('li');
+    li.className = 'song-item';
+    const img = document.createElement('img');
+    img.src = `Asset/Images/${item.cover}.jpeg`;
+    li.append(img);
+    const div = document.createElement('div');
+    const h2 = document.createElement('h2');
+    h2.innerHTML = item.title;
+    const h3 = document.createElement('h3');
+    h3.innerHTML = item.artist;
+    div.append(h2);
+    div.append(h3);
+    li.append(div);
+    
+    return li;
+  }
+
+  handleLibraryDisplay = (e) => {
+    
+    const musicLibrary = document.querySelector('.library');
+    musicLibrary.classList.toggle('show-library');
+    
   }
 
   // Play and pause song
