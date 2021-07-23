@@ -1,15 +1,99 @@
 .music-container {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.music-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.music-header button {
+  position: relative;
+  z-index: 10;
+  color: #ffffff;
+  border: 1px solid var(--secondary-color);
+}
+
+.library {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30rem;
+  background-color: var(--mute-color);
+  color: var(--dark-color);
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  transition: all 0.8s ease-in-out;
+  -webkit-transition: all 0.8s ease-in-out;
+  -moz-transition: all 0.8s ease-in-out;
+  overflow-y: scroll;
+  overflow-x: auto;
+  z-index: 5;
+}
+
+.show-library {
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%)
+}
+
+.library h1 {
+  padding: 1rem;
+}
+
+/* Library custom scrollbar */
+
+.library {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(204, 204, 204) transparent;
+}
+
+.library::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.library::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.library::-webkit-scrollbar-thumb {
+  background-color: rgb(122, 127, 128);
+  border-radius: 4rem;
+  border-color: transparent;
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+}
+
+.song-item div {
+  margin-left: 0.5rem;
+}
+
+.song-item:hover {
+  background-color: rgb(220, 243, 252);
+}
+
+.song-item img {
+  width: 30%;
+}
+
 .song-cover {
   display: inline-block;
-  width: 100%;
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
+  width: 40%;
+  flex: 1 1 35%;
+  align-self: center;
+  border-radius: 50%;
+  margin-top: 1.5rem;
 }
 
 .song-cover:hover {
@@ -22,6 +106,10 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.seek-container p {
+  padding: 0 0.5rem;
 }
 
 #seekBar {
@@ -67,9 +155,7 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .song-cover {
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 1rem;
+  .music-container {
+    _min-height: 80vh;
   }
 }

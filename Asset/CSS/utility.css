@@ -84,6 +84,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 1rem 0;
 }
 
 .img-fluid {
@@ -137,6 +138,14 @@
 
 .is-favourite {
   color: var(--favourite-color);
+}
+
+.active-song {
+  background-color: rgb(195, 235, 252);
+}
+
+.mute-color {
+  color: var(--mute-color);
 }
 
 /* Resetting Input default styling */
