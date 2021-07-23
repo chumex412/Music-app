@@ -15,6 +15,7 @@
 .music-header button {
   position: relative;
   z-index: 10;
+  background-color: var(--deep-color);
   color: #ffffff;
   border: 1px solid var(--secondary-color);
 }
@@ -23,7 +24,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 30rem;
+  width: 100%;
   background-color: var(--mute-color);
   color: var(--dark-color);
   transform: translateX(-100%);
@@ -80,11 +81,11 @@
 }
 
 .song-item:hover {
-  background-color: rgb(220, 243, 252);
+  background-color: rgb(138, 180, 197);
 }
 
 .song-item img {
-  width: 30%;
+  width: 25%;
 }
 
 .song-cover {
@@ -155,7 +156,11 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .music-container {
-    _min-height: 80vh;
+  .library {
+    width: 30rem;
+  }
+
+  .song-item img {
+    width: 30%;
   }
 }
