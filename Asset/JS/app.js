@@ -6,12 +6,24 @@
 
   const list = document.querySelector('.library .song-list');
 
-  for(let track of music.tracks) {
-    const item = music.createLibrary(track);
-    list.append(item);
-  }
+  const library = () => {
+    for(let track of music.tracks) {
+      const item = music.createLibrary(track);
+      list.append(item);
 
-  let index = music.currentTrack;
+      item.addEventListener('click', () => {
+        music.selectedLibrarySong(track)
+        if (music.audioElement.paused) {
+          music.audioElement.play();
+          music.changePlayPauseIcon("play", music.playBtn.firstElementChild);
+        }
+      });
+    }
+  };
+
+  library();
+
+  let index = music.currentTrackIndex;
 
   const songIndex = music.tracks[index];
 
@@ -19,4 +31,4 @@
 
    music.loadSong(songIndex);
 
-})
+});
