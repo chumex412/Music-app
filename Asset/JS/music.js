@@ -1,6 +1,7 @@
 class Music {
   constructor(songs) {
-    this.currentTrack = 0;
+    this.currentTrackIndex = 0;
+    this.currentTrack = null,
     this.tracks = songs(),
     this.library = false,
     this.musicBtns = document.querySelector('.music-action-btn');
@@ -36,26 +37,53 @@ class Music {
   }
 
   // Load track to the DOM
-  loadSong(index) {
-    const {audioElement, songTitle, songArtist, songCover, prevBtn, volumeBtn} = this;
+  loadSong(track) {
+    const {
+      audioElement, 
+      songTitle, 
+      songArtist, 
+      songCover, 
+      prevBtn, 
+      volumeBtn
+    } = this;
 
-    audioElement.src = `Asset/Audio/${index.file}.mp3`;
-    songTitle.textContent = `${index.title}`;
-    songArtist.textContent = `${index.artist}`;
-    songCover.src = `Asset/Images/${index.cover}.jpeg`;
+    audioElement.src = `Asset/Audio/${track.file}.mp3`;
+    songTitle.textContent = `${track.title}`;
+    songArtist.textContent = `${track.artist}`;
+    songCover.src = `Asset/Images/${track.cover}.jpeg`;
 
     // Hide volume 
     document.querySelector('.volume-wrapper').classList.add('hidden');
     volumeBtn.firstElementChild.classList.remove('is-active');
 
-    if(this.currentTrack === 0) {
+    if(this.currentTrackIndex === 0) {
       prevBtn.disabled = true;
+      prevBtn.firstElementChild.classList.add('mute-color');
+    } else {
+      prevBtn.firstElementChild.classList.remove('mute-color');
+    }
+
+    //Set value of track to current song
+    this.currentSong = track;
+
+    //Get all DOM elements with class song-item
+    const songItems = document.querySelectorAll(".song-list .song-item");
+    
+    // Highlight the current playing song in the library
+    for(let item of songItems) {
+      if(item.id == this.currentTrack.id) {
+        item.classList.add('active-song');
+      } else {
+        item.classList.remove('active-song');
+      }
     }
   }
 
+  // Creating Library elements
   createLibrary = (item) => {
     const li = document.createElement('li');
     li.className = 'song-item';
+    li.id = item.id;
     const img = document.createElement('img');
     img.src = `Asset/Images/${item.cover}.jpeg`;
     li.append(img);
@@ -71,6 +99,7 @@ class Music {
     return li;
   }
 
+  // Display library
   handleLibraryDisplay = (e) => {
     
     const musicLibrary = document.querySelector('.library');
@@ -83,32 +112,66 @@ class Music {
     const {audioElement, playBtn} = this;
     if(audioElement.paused) {
       audioElement.play();
-      this.changePlayIcon(playBtn.firstElementChild);
+      this.changePlayPauseIcon('play' ,playBtn.firstElementChild);
     } else {
       audioElement.pause();
-      this.changePauseIcon(playBtn.firstElementChild);
+      this.changePlayPauseIcon('pause', playBtn.firstElementChild);
     }
   }
 
   // show Next song
   handleNext = async () => {
-    const {tracks, prevBtn, playBtn} = this;
-    this.changePauseIcon(playBtn.firstElementChild);
+    const {tracks, prevBtn, playBtn, audioElement} = this;
+    
     prevBtn.disabled = false;
+    
+    // Get current index of playing song
+    const currentIndex = tracks.findIndex(track => track.id === this.currentTrack.id);
 
-    this.indexRemaining = this.indexRemaining + 1;
+    if(this.shuffle.classList.contains('is-active')) {
+      this.indexRemaining = this.getRandomIndex();
+    } else {
+      this.indexRemaining = currentIndex + 1;
+    }
 
-    await this.loadSong(tracks[this.currentTrack]);
+    await this.loadSong(tracks[this.currentTrackIndex]);
+    if (audioElement.paused) {
+      audioElement.play();
+      this.changePlayPauseIcon('play', playBtn.firstElementChild);
+    }
   }
 
   // Show previous song
   handlePrev = async (e) => {
-    const {tracks, prevBtn, playBtn} = this;
-    this.changePauseIcon(playBtn.firstElementChild);
+    const {tracks, playBtn, audioElement} = this;
 
-    this.indexRemaining = this.indexRemaining - 1;
+    // Get current index of playing song
+    const currentIndex = tracks.findIndex(track => track.id === this.currentTrack.id);
+    this.indexRemaining = currentIndex - 1;
 
-    await this.loadSong(tracks[this.currentTrack]);
+    await this.loadSong(tracks[this.currentTrackIndex]);
+    if (audioElement.paused) {
+      audioElement.play();
+      this.changePlayPauseIcon('play', playBtn.firstElementChild);
+    }
+  }
+
+  // Play next song after previous song is ended handler
+  songEndHandler = async () => {
+    // Get current index of playing song
+    const currentIndex = tracks.findIndex(track => track.id === this.currentTrack.id);
+
+    if(this.shuffle.classList.contains('is-active')) {
+      this.indexRemaining = this.getRandomIndex();
+    } else {
+      this.indexRemaining = currentIndex + 1;
+    }
+
+    await this.loadSong(tracks[this.currentTrackIndex]);
+    if (audioElement.paused) {
+      audioElement.play();
+      this.changePlayPauseIcon('play', playBtn.firstElementChild);
+    }
   }
 
   // Sync media element volume and Determine what happens with volume
@@ -144,34 +207,54 @@ class Music {
   }
 
   // Change play icon to pause
-  changePlayIcon(icon) {
+  changePlayPauseIcon(name, icon) {
+    if(name === "play") {
     icon.classList.remove('fa-play');
     icon.classList.add('fa-pause');
-  }
-
-  // Change pause icon to play
-  changePauseIcon(icon) {
-    icon.classList.remove('fa-pause');
-    icon.classList.add('fa-play');
+    } else {
+      icon.classList.remove('fa-pause');
+      icon.classList.add('fa-play');
+    }
   }
 
   // Get and return currentTrack value
   get indexRemaining() {
-    if(this.shuffle.classList.contains('is-active')) {
-      return this.currentTrack = this.getRandomIndex();
-    } else {
-      return this.currentTrack 
-    }
+      return this.currentTrackIndex 
   }
 
   // Updates the currentTrack value
   set indexRemaining(index) {
-    this.currentTrack = index % this.tracks.length;
+    this.currentTrackIndex = index % this.tracks.length;
   }
+
+  // Getting and updating the value of current song info
+  get currentSong () {
+    return this.currentTrack;
+  }
+
+  set currentSong (song) {
+    this.currentTrack = song;
+  }
+
 
   // Return random song index value
   getRandomIndex() {
     return Math.floor(Math.random() * this.tracks.length);
+  }
+
+  // Select library song
+  selectedLibrarySong = (item) => {
+    const { tracks } = this;
+    const newTrack = tracks.map((track, index) => {
+      if(track.id === item.id) {
+        this.loadSong(tracks[index]);
+        return {...track, active: true};
+      } else {
+        return {...track, active: false};
+      }
+    });
+    
+    return newTrack
   }
 
   // Show Total duration of audio
